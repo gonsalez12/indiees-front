@@ -1,8 +1,4 @@
 
-import './home.css';
-
-
-
 function Teste(){
   
 
