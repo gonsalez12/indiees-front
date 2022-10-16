@@ -1,17 +1,11 @@
 import React, { Fragment } from "react";
-import { BrowserRouter, Route, Routes, Outlet, Navigate} from "react-router-dom";
+import { BrowserRouter, Route, Routes} from "react-router-dom";
 import Header from './components/Header';
 
-import { isAuthenticated } from "./services/auth";
 
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Teste from "./pages/Teste";
-
-function PrivateOutlet() {
-  const auth = isAuthenticated();
-  return auth ? <Outlet /> : <Navigate to="/login" />;
-}
+import Teste from './pages/Teste';  
 
 
 const RoutesApp = () => (
@@ -22,11 +16,7 @@ const RoutesApp = () => (
         <Routes>
           <Route index  element={ <Home/> } />
           <Route path="/login" element={ <Login/> } />
-          
-          <Route path="/teste" element={<PrivateOutlet />} >
-            <Route element={<Teste/>}/> 
-          </Route>
-
+          <Route path="/teste" element={ <Teste/>} />
           <Route path="*" element={<p>There's nothing here: 404!</p>} />
         </Routes>
       </Fragment> 
