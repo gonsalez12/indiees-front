@@ -1,39 +1,79 @@
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form'
+import React  from 'react';
+import authService from '../../services/auth ';
+import {Navigate } from 'react-router-dom'
+
 
 import './login.css';
 
-function Login(){
+
+
+class Login extends React.Component{
+
+  constructor(props){
+    super(props)
+    this.state = {
+      email: "",
+      senha: "",
+      redirectTo: null
+    }
+  }
+
+  sendLogin = async (event) => {
+    event.preventDefault();
+    let data = {
+      email : this.state.email,
+      senha : this.state.senha
+    }
+    try {
+      let res = await authService.authenticate(data)
+      authService.setLoggedUser(res.data)
+      this.setState({redirectTo : "/admin"})
+    } catch (error){
+      console.log(error);
+      alert("Erro ao efetuar o login")
+      
+    }
+  }
   
 
-  return(
-    <div class="borda" >
-      <Container>
-        <Row  className="justify-content-md-center">
-          <div className='form'>
-          <Col >
-              <Form>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" placeholder="Digite o email" />
-              </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Senha</Form.Label>
-                <Form.Control type="senha" placeholder="Senha" />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              </Form.Group>
-              <Button variant="primary" type="submit">Logar</Button>
-            </Form>
-          </Col>
+  render(){
+    if(this.state.redirectTo){
+      return(
+        <Navigate to={this.state.redirectTo}/>
+      )
+    }
+    return(
+      <div className="container d-flex justify-content-center">
+          <div className="card mt-5 w-50">
+              <div className="card-body">
+                  <form onSubmit={this.sendLogin}>
+                      <div className="form-group">
+                          <label htmlFor="email">Usuário</label>
+                          <input 
+                              type="text" 
+                              className="form-control"
+                              id="email" 
+                              placeholder="Digite o email"
+                              value={this.state.email}
+                              onChange={e => this.setState({email : e.target.value})} />
+                      </div>
+                      <div className="form-group">
+                          <label htmlFor="senha">Senha</label>
+                          <input 
+                              type="senha" 
+                              className="form-control" 
+                              id="senha" 
+                              placeholder="Digite a Senha"
+                              value={this.state.senha}
+                              onChange={e => this.setState({senha : e.target.value})}/>
+                      </div>
+                      <button type="submit" className="btn btn-primary">Entrar</button>
+                  </form>
+              </div>
           </div>
-        </Row>
-      </Container>
-    </div>
-  )
+      </div>
+    )
+  }
 }
 
 export default Login;
