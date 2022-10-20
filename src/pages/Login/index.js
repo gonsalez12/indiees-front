@@ -26,16 +26,14 @@ class Login extends React.Component{
     }
     try {
       let res = await authService.authenticate(data)
-      console.log("res", res.data);
       authService.setLoggedUser(res.data)
-      this.setState({redirectTo : "/teste"})
-
+      this.setState({redirectTo : "/admin"})
     } catch (error){
       console.log(error);
       alert("Erro ao efetuar o login")
       
     }
-  }//
+  }
   
 
   render(){

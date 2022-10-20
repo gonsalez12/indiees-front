@@ -5,7 +5,8 @@ import Header from './components/Header';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Teste from './pages/Teste';  
+import Admin from './pages/Admin';
+
 
 
 const RoutesApp = () => (
@@ -16,7 +17,7 @@ const RoutesApp = () => (
         <Routes>
           <Route index  element={ <Home/> } />
           <Route path="/login" element={ <Login/> } />
-          <Route path="/teste" element={ <Teste/>} />
+          <Route path="/admin" element={ <Admin/>}  isPrivate />
           <Route path="*" element={<p>There's nothing here: 404!</p>} />
         </Routes>
       </Fragment> 
