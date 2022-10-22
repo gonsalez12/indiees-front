@@ -1,68 +1,62 @@
 import React  from 'react';
-import authService from '../../services/auth ';
 import {Navigate   } from 'react-router-dom'
 
+import CadastroService from '../../services/cadastro';
 
 
-import './login.css';
+class CadastroUsuario extends React.Component{
 
-
-
-class Login extends React.Component{
-  
-
-  
   constructor(props){
     super(props)
     this.state = {
-      
+      nome: "",
       email: "",
       senha: "",
+      perfil: "2",
       redirectTo: null
     }
-    
   }
-
-  
-
-  sendLogin = async (event) => {
-    event.preventDefault();
-    let data = {
-      email : this.state.email,
-      senha : this.state.senha
+    sendCadastro = async (event) => {
+      event.preventDefault();
+      let data = {
+        nome : this.state.nome,
+        perfil : this.state.perfil,
+        email : this.state.email,
+        senha : this.state.senha
+      }
+      try {
+        await CadastroService.cadastrar(data)
+        alert("Cadastrado com sucesso")
+        this.setState({redirectTo : "/login"})
+      } catch (error){
+        alert("Erro ao efetuar o cadastro")
+        
+      }
     }
-    try {
-      let res = await authService.authenticate(data)
-      authService.setLoggedUser(res.data)
-      this.setState({redirectTo : "/admin"})
-    } catch (error){
-      alert("Erro ao efetuar o login")
-      
-    }
-  }
-  
-  cadastro() {
-    
-    console.log("clicou");
-  }
- 
   
 
   render(){
-    
-
     if(this.state.redirectTo){
       return(
         <Navigate to={this.state.redirectTo}/>
       )
     }
-
-
     return(
-      <div className="container d-flex justify-content-center">
+        <div className="container d-flex justify-content-center">
           <div className="card mt-5 w-50">
               <div className="card-body">
-                  <form onSubmit={this.sendLogin}>
+                  <form onSubmit={this.sendCadastro}>
+                    <div className="form-group">
+                          <label htmlFor="nome">Nome</label>
+                          <input 
+                              type="text" 
+                              className="form-control"
+                              id="nome" 
+                              placeholder="Digite o nome completo"
+                              value={this.state.nome}
+                              onChange={e => this.setState({nome : e.target.value})} />
+                      </div>
+                      <p></p>
                       <div className="form-group">
                           <label htmlFor="email">Usuário</label>
                           <input 
@@ -85,19 +79,13 @@ class Login extends React.Component{
                               onChange={e => this.setState({senha : e.target.value})}/>
                       </div>
                       <p></p>
-                      <button type="submit" className="btn btn-primary">Entrar</button>
-                      
+                      <button type="submit" className="btn btn-primary">Cadastrar</button>  
                   </form>
-                  <p></p>
-                  <button 
-                    onClick={this.cadastro}
-                    className="btn btn-light">Cadastrar</button>
               </div>
-              
           </div>
       </div>
     )
   }
 }
 
-export default Login;
+export default CadastroUsuario;

@@ -15,7 +15,6 @@ class Admin extends React.Component{
   async componentDidMount(){
     let loggedUser = await authService.getLoggedUser()
     if(!loggedUser){
-      console.log("teste")
       this.setState({redirectTo : "/login"})
       
     }
