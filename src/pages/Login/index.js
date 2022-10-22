@@ -1,6 +1,6 @@
 import React  from 'react';
 import authService from '../../services/auth ';
-import {Navigate   } from 'react-router-dom'
+import {Navigate,Link   } from 'react-router-dom'
 
 
 
@@ -89,9 +89,13 @@ class Login extends React.Component{
                       
                   </form>
                   <p></p>
-                  <button 
-                    onClick={this.cadastro}
-                    className="btn btn-light">Cadastrar</button>
+                  <button className="btn btn-light">
+                    <div class="linkCadastro">
+                      <Link to="/CadastroUsuario" >  
+                        Cadastro
+                      </Link>
+                    </div>
+                  </button>
               </div>
               
           </div>
