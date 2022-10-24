@@ -1,8 +1,7 @@
 import React  from 'react';
-import authService from '../../services/auth ';
 import {Navigate,Link   } from 'react-router-dom'
 
-
+import authService from '../../services/auth ';
 
 import './login.css';
 
@@ -34,7 +33,12 @@ class Login extends React.Component{
     try {
       let res = await authService.authenticate(data)
       authService.setLoggedUser(res.data)
-      this.setState({redirectTo : "/admin"})
+      console.log(res.data);
+      if(res.data.esqueci_senha){
+        this.setState({redirectTo : "/AlterarSenha"})
+      }else{
+        this.setState({redirectTo : "/admin"})
+      }
     } catch (error){
       alert("Erro ao efetuar o login")
       
@@ -93,6 +97,14 @@ class Login extends React.Component{
                     <div class="linkCadastro">
                       <Link to="/CadastroUsuario" >  
                         Cadastro
+                      </Link>
+                    </div>
+                  </button>
+                  <p></p>
+                  <button className="btn btn-light">
+                    <div class="linkCadastro">
+                      <Link to="/EsqueciSenha" >  
+                        Esqueci a Senha
                       </Link>
                     </div>
                   </button>
