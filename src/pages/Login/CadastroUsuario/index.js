@@ -1,7 +1,7 @@
 import React  from 'react';
 import {Navigate   } from 'react-router-dom'
 
-import CadastroService from '../../services/cadastro';
+import CadastroService from '../../../services/cadastro';
 
 
 class CadastroUsuario extends React.Component{
