@@ -33,11 +33,12 @@ class Login extends React.Component{
     try {
       let res = await authService.authenticate(data)
       authService.setLoggedUser(res.data)
-      console.log(res.data);
       if(res.data.esqueci_senha){
         this.setState({redirectTo : "/AlterarSenha"})
+        
       }else{
         this.setState({redirectTo : "/admin"})
+        
       }
     } catch (error){
       alert("Erro ao efetuar o login")
@@ -45,19 +46,14 @@ class Login extends React.Component{
     }
   }
   
-  cadastro() {
-    
-    console.log("clicou");
-  }
- 
   
 
   render(){
     
 
     if(this.state.redirectTo){
-      return(
-        <Navigate to={this.state.redirectTo}/>
+      return (<Navigate to={this.state.redirectTo }  replace={false} />
+      
       )
     }
 

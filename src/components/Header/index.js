@@ -6,13 +6,17 @@ import Navbar from 'react-bootstrap/Navbar';
 import React  from 'react';
 import authService from '../../services/auth ';
 
+import MenuAdmin from './MenuAdmin';
+
 
 class Header extends React.Component{
 
   constructor(props){
     super(props)
     this.state = {
-      userData : null
+      userData : null,
+      redirectTo : null
+
     }
   }
 
@@ -22,7 +26,7 @@ class Header extends React.Component{
   }
 
   componentDidMount(){
-    this.loadUser()
+    this.loadUser()    
   }
 
   
@@ -34,17 +38,22 @@ class Header extends React.Component{
   
 
   render(){
-    let login;
 
-    
 
+    let login;   
     if(this.state.userData == null){
       login = <Nav.Link aling="center" href="/login" >Login</Nav.Link>;
     }else{
       login = <Nav.Link aling="center" onClick={()=> this.logout()}>Logout</Nav.Link>;
       
+      
     }
+    let menu;
+    if(this.state.userData?.perfil === "Admin"){
+      menu = <MenuAdmin/>
 
+      
+    }
     return(
       <header>
         <Navbar bg="primary" variant="dark">
@@ -59,10 +68,10 @@ class Header extends React.Component{
                 />
                 Indiees
               </Navbar.Brand>
-            <Nav className="me-auto">
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/admin">Admin</Nav.Link>
-            </Nav>
+              <Nav className="me-auto">
+                <Nav.Link href="/">Home</Nav.Link>
+                {menu}
+              </Nav>
             <Nav>
               {login}
             </Nav>

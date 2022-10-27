@@ -27,7 +27,7 @@ class Admin extends React.Component{
     return(
       
       <div className="container">
-          Teste admin
+          Acesso somente Administrativo
       </div>
     )
   }
