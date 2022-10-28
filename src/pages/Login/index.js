@@ -1,15 +1,11 @@
 import React  from 'react';
-import {Navigate,Link   } from 'react-router-dom'
+import {Navigate,Link } from 'react-router-dom'
 
 import authService from '../../services/auth ';
 
 import './login.css';
 
-
-
 class Login extends React.Component{
-  
-
   
   constructor(props){
     super(props)
@@ -22,8 +18,6 @@ class Login extends React.Component{
     
   }
 
-  
-
   sendLogin = async (event) => {
     event.preventDefault();
     let data = {
@@ -35,7 +29,6 @@ class Login extends React.Component{
       authService.setLoggedUser(res.data)
       if(res.data.esqueci_senha){
         this.setState({redirectTo : "/AlterarSenha"})
-        
       }else{
         this.setState({redirectTo : "/admin"})
         
@@ -47,14 +40,9 @@ class Login extends React.Component{
   }
   
   
-
   render(){
-    
-
     if(this.state.redirectTo){
-      return (<Navigate to={this.state.redirectTo }  replace={false} />
-      
-      )
+      return <Navigate to={this.state.redirectTo}  replace={true}/>
     }
 
 
@@ -86,26 +74,20 @@ class Login extends React.Component{
                       </div>
                       <p></p>
                       <button type="submit" className="btn btn-primary">Entrar</button>
-                      
+                      <p></p>
+                      <button className="btn btn-light">
+                        <Link to="/CadastroUsuario" >  
+                          Cadastro
+                        </Link>
+                      </button>
+                      <button className="btn btn-light">
+                        <Link to="/EsqueciSenha" >  
+                          Esqueci a Senha
+                        </Link>
+                      </button>
                   </form>
                   <p></p>
-                  <button className="btn btn-light">
-                    <div class="linkCadastro">
-                      <Link to="/CadastroUsuario" >  
-                        Cadastro
-                      </Link>
-                    </div>
-                  </button>
-                  <p></p>
-                  <button className="btn btn-light">
-                    <div class="linkCadastro">
-                      <Link to="/EsqueciSenha" >  
-                        Esqueci a Senha
-                      </Link>
-                    </div>
-                  </button>
               </div>
-              
           </div>
       </div>
     )

@@ -2,7 +2,6 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-
 import React  from 'react';
 import authService from '../../services/auth ';
 
@@ -26,14 +25,13 @@ class Header extends React.Component{
   }
 
   componentDidMount(){
-    this.loadUser()    
+    this.loadUser()  
   }
 
-  
   logout(){
     this.setState({userData : null})
     localStorage.clear()
-
+    window.location.reload()
   }
   
 
@@ -44,15 +42,12 @@ class Header extends React.Component{
     if(this.state.userData == null){
       login = <Nav.Link aling="center" href="/login" >Login</Nav.Link>;
     }else{
-      login = <Nav.Link aling="center" onClick={()=> this.logout()}>Logout</Nav.Link>;
-      
-      
+      login = <Nav.Link aling="center" onClick={()=> this.logout()}>Logout</Nav.Link>; 
     }
+
     let menu;
     if(this.state.userData?.perfil === "Admin"){
       menu = <MenuAdmin/>
-
-      
     }
     return(
       <header>
