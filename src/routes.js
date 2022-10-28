@@ -23,7 +23,7 @@ const RoutesApp = () => (
           <Route path="/login" element={ <Login/> } />
           <Route path="/CadastroUsuario" element={<CadastroUsuario/>}/>
           <Route path="/EsqueciSenha" element={<EsqueciSenha/>} />
-          <Route path="/admin" element={ <Admin/>}  isPrivate />
+          <Route path="/admin" element={ <Admin/>}   />
           <Route path="/AlterarSenha" element={ <AlterarSenha/>}  isPrivate />
           <Route path="*" element={<p>There's nothing here: 404!</p>} />
         </Routes>

@@ -7,7 +7,6 @@ const alterarSenha = {
     
 
     async alterarSenha(data, token) {
-        console.log(token)
         const endpoint = `${apiUrl}/usuarios/esqueciSenha`
         return axios.post(endpoint, data,{
             'Authorization': `Bearer ${token}`
